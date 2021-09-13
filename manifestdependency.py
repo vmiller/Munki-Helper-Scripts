@@ -11,7 +11,7 @@ import plistlib
 import sys
 
 #==== This should be modified to match your environment ====
-REPO_ROOT = '/Volumes/munki_repo'
+REPO_ROOT = '/Volumes/its_munki_repo'
 #-----------------------------------------------------------
 
 manifest_path = os.path.join(REPO_ROOT, 'manifests')
@@ -38,6 +38,7 @@ if not os.path.exists(manifest_path):
     quit()
     
 # Walk the manifest path and build a list of manifests
+print("== Generating List of Manifests ==")
 manifest_list = []
 for root, dirs, files in os.walk(manifest_path):
     for file in files:
@@ -46,12 +47,15 @@ for root, dirs, files in os.walk(manifest_path):
     
 # Get manifest from script argument and check for it's inclusions           
 if len(sys.argv) == 2:
-    
+    print("== Manifest Includes ==")
     includes = includesManifests(sys.argv[1])
+    print("==checking includes")
     if includes != []:
         print str(sys.argv[1]) + ' includes : '
         for item in includes:
             print '        ' + str(item)
+    else:
+        print(str(sys.argv[1]) + "Does not include any manifests")
             
     included_list = []
     includedByManifests(sys.argv[1])
